@@ -13,9 +13,17 @@ class CreateEpisodiosTable extends Migration
      */
     public function up()
     {
-        Schema::create('episodios', function (Blueprint $table) {
+        Schema::create('episodio', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->integer('numero');
+            $table->integer('temporada_id');
+
+            $table->foreign('temporada_id', 'temporada_em_epsodio')
+                ->references('id')
+                ->on('temporada')
+                ->onDelete('CASCADE')
+                ->onUpdate('NO ACTION');
         });
     }
 

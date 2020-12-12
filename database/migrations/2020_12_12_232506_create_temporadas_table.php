@@ -13,9 +13,17 @@ class CreateTemporadasTable extends Migration
      */
     public function up()
     {
-        Schema::create('temporadas', function (Blueprint $table) {
+        Schema::create('temporada', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->integer('serie_id');
+            $table->integer('numero');
+
+            $table->foreign('serie_id', 'serie_em_temporada')
+                ->references('id')
+                ->on('serie')
+                ->onDelete('CASCADE')
+                ->onUpdate('NO ACTION');
         });
     }
 
@@ -26,6 +34,6 @@ class CreateTemporadasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('temporadas');
+        Schema::dropIfExists('temporada');
     }
 }
