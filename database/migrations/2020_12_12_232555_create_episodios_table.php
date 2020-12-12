@@ -34,6 +34,6 @@ class CreateEpisodiosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('episodios');
+        Schema::dropIfExists('episodio');
     }
 }
