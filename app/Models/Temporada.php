@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Temporada extends Model
 {
     protected $table    = 'temporada';
-    protected $fillable = ['nome'];
+    protected $fillable = ['numero', 'serie_id'];
 
-    public function epsodios() {
-        return $this->hasMany(Epsodios::class);
+    public function episodios() {
+        return $this->hasMany(Episodio::class);
     }
 
     public function serie() {

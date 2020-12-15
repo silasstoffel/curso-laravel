@@ -27,13 +27,18 @@ Séries
                 <li class="list-group-item">
                     <div class="d-flex justify-content-between align-items-center">
                         <span>{{ $serie->nome }}</span>
-                        <form method="post" action="series/remove/{{ $serie->id }}" onsubmit="return confirm('Deseja excluir?')">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-sm btn-danger btn-sm">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </form>
+                        <span class="d-flex">
+                            <a href="/series/{{ $serie->id }}/temporadas" class="btn btn-info btn-sm mr-2">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                            <form method="post" action="series/remove/{{ $serie->id }}" onsubmit="return confirm('Deseja excluir?')">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-sm btn-danger btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </span>
                     </div>
                 </li>
             @endforeach
