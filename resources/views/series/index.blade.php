@@ -26,8 +26,24 @@ Séries
             @foreach($series as $serie)
                 <li class="list-group-item">
                     <div class="d-flex justify-content-between align-items-center">
-                        <span>{{ $serie->nome }}</span>
+                        <span id="nome-serie-{{ $serie->id }}">{{ $serie->nome }}</span>
+
+                        <div class="input-group w-50" hidden id="input-nome-serie-{{ $serie->id }}">
+                            <input type="text" class="form-control" value="{{ $serie->nome }}">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" onclick="editarSerie({{ $serie->id }})">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                                @csrf
+                            </div>
+                        </div>
+
                         <span class="d-flex">
+
+                            <button class="btn btn-info btn-sm mr-1" onclick="toggleInput({{ $serie->id }})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+
                             <a href="/series/{{ $serie->id }}/temporadas" class="btn btn-info btn-sm mr-2">
                                 <i class="fas fa-external-link-alt"></i>
                             </a>
@@ -45,4 +61,38 @@ Séries
         </ul>
     </div>
 </div>
+
+
+<script>
+    function toggleInput(serieId) {
+        const nomeSerieEl = document.getElementById(`input-nome-serie-${serieId}`);
+        const inputSerieEl = document.getElementById(`nome-serie-${serieId}`);
+        if (nomeSerieEl.hasAttribute('hidden')) {
+            nomeSerieEl.removeAttribute('hidden');
+            inputSerieEl.hidden = true;
+        } else {
+            inputSerieEl.removeAttribute('hidden');
+            nomeSerieEl.hidden = true;
+        }
+    }
+
+    function editarSerie(serieId) {
+        const nome = document.querySelector(`#input-nome-serie-${serieId} > input`).value;
+        const token = document.querySelector('input[name="_token"]').value;
+        let form = new FormData();
+        form.append('nome', nome);
+        form.append('_token', token);
+        const url = `/series/${serieId}/editar-nome`
+
+        fetch(url, {
+            body: form,
+            method: 'post'
+        }).then(() => {
+            toggleInput(serieId);
+            document.querySelector(`#nome-serie-${serieId}`).textContent = nome;
+        });
+    }
+
+</script>
+
 @endsection

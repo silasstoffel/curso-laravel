@@ -14,6 +14,7 @@ Route::group(['prefix' => 'series'], function() {
     Route::post('/create', [SeriesController::class, 'store'])->name('serie_store');
     Route::delete('/remove/{id}', [SeriesController::class, 'destroy'])->name('serie_destroy');
     Route::get('/{serieId}/temporadas', [TemporadasContoller::class, 'index'])->name('temporada.index');
+    Route::post('/{id}/editar-nome', [SeriesController::class, 'updateName']);
 });
 
 
