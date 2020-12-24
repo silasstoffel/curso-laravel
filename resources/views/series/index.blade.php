@@ -5,7 +5,10 @@ Séries
 @endsection
 
 @section('conteudo')
+
+@auth
 <a href="{{ route('serie_create') }}" class="btn btn-dark mb-2">Adicionar</a>
+@endauth
 
 @include('flash-message', ['mensagem' => $mensagem])
 
@@ -27,15 +30,20 @@ Séries
                             </div>
                         </div>
 
+
                         <span class="d-flex">
 
+                            @auth
                             <button class="btn btn-info btn-sm mr-1" onclick="toggleInput({{ $serie->id }})">
                                 <i class="fas fa-edit"></i>
                             </button>
+                             @endauth
 
                             <a href="/series/{{ $serie->id }}/temporadas" class="btn btn-info btn-sm mr-2">
                                 <i class="fas fa-external-link-alt"></i>
                             </a>
+
+                            @auth
                             <form method="post" action="series/remove/{{ $serie->id }}" onsubmit="return confirm('Deseja excluir?')">
                                 @csrf
                                 @method('DELETE')
@@ -43,7 +51,9 @@ Séries
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
+                            @endauth
                         </span>
+
                     </div>
                 </li>
             @endforeach
