@@ -14,16 +14,20 @@
 </head>
 <body>
 
-<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-2 d-flex justify-content-between">
+        <a class="navbar navbar-expand-lg" href="{{ route('serie.index') }}">Home</a>
+        <a href="/sair" class="text-danger">Sair</a>
+    </nav>
 
+    <div class="container">
 
-    <div class="jumbotron">
-        <h1 class="display-4">@yield('cabecalho')</h1>
+        <div class="jumbotron">
+            <h1 class="display-4">@yield('cabecalho')</h1>
+        </div>
+
+        @yield('conteudo')
+
     </div>
-
-    @yield('conteudo')
-
-</div>
 
 </body>
 </html>
