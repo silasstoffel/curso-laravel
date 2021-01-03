@@ -10,7 +10,12 @@ use Tests\TestCase;
 class TemporadaTest extends TestCase
 {
 
-   private Temporada $temporada;
+   /**
+    * temporada
+    *
+    * @var Temporada
+    */
+   private $temporada;
 
     protected function setUp(): void
     {

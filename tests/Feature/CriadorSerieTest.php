@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Models\Serie;
 use App\Services\CriadorDeSerie;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class CriadorSerieTest extends TestCase
