@@ -32,13 +32,9 @@ Route::post('/entrar', [EntrarController::class, 'entrar']);
 Route::get('/registrar', [RegistrarController::class, 'create']);
 Route::post('/registrar', [RegistrarController::class, 'store']);
 
-Route::get('/sair', function() {
+Route::get('/sair', function () {
     Auth::logout();
     return redirect('/entrar');
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('/mail', function() {
-    return new \App\Mail\SerieCriada('Arrow', 4, 23);
-});

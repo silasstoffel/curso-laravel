@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SeriesFormRequest;
-use App\Models\Episodio;
 use App\Models\Serie;
-use App\Models\Temporada;
 use App\Services\CriadorDeSerie;
 use App\Services\RemovedorDeSerie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class SeriesController extends Controller
 {
@@ -27,7 +26,21 @@ class SeriesController extends Controller
 
     public function store(SeriesFormRequest $request, CriadorDeSerie $criadorSerie)
     {
-        $serie = $criadorSerie->criar($request->nome, $request->qtd_temporadas, $request->qtd_episodio_temporada);
+        $serie = $criadorSerie->criar(
+            $request->nome,
+            $request->qtd_temporadas,
+            $request->qtd_episodio_temporada
+        );
+
+        $email = new \App\Mail\SerieCriada(
+            $request->nome,
+            $request->qtd_temporadas,
+            $request->qtd_episodio_temporada
+        );
+
+        $dest  = $request->user();
+        Mail::to($dest)->send($email);
+
         $request->session()
             ->flash(
                 'flash_message',
@@ -48,7 +61,7 @@ class SeriesController extends Controller
 
     public function updateName(int $id, Request $request)
     {
-        $serie = Serie::find($id);
+        $serie       = Serie::find($id);
         $serie->nome = $request->nome;
         $serie->save();
     }

@@ -6,6 +6,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
+// php artisan make:mail OrderShipped
+
 class SerieCriada extends Mailable
 {
     use Queueable, SerializesModels;
@@ -24,6 +26,9 @@ class SerieCriada extends Mailable
         $this->nome                 = $nome;
         $this->quantidadeTemporadas = $quantidadeTemporadas;
         $this->quantidadeEpisodios  = $quantidadeEpisodios;
+        $this->subject              = sprintf(
+            'Chegou %s no seu App de Séries', $nome
+        );
     }
 
     /**
