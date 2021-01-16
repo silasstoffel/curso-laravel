@@ -4,11 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SeriesFormRequest;
 use App\Models\Serie;
-use App\Models\User;
 use App\Services\CriadorDeSerie;
 use App\Services\RemovedorDeSerie;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 
 class SeriesController extends Controller
 {
@@ -33,11 +31,13 @@ class SeriesController extends Controller
             $request->qtd_episodio_temporada
         );
 
-        $this->alertarUsuariosPorEmailAoCriarSerie(
+        $event = new \App\Events\SeriaCriadaEvent(
             $request->nome,
             $request->qtd_temporadas,
             $request->qtd_episodio_temporada
         );
+
+        event($event);
 
         $request->session()
             ->flash(
@@ -63,34 +63,4 @@ class SeriesController extends Controller
         $serie->nome = $request->nome;
         $serie->save();
     }
-
-    private function alertarUsuariosPorEmailAoCriarSerie($nome, $quantidadeTemporada, $quantidadeEpsodio)
-    {
-        /*
-        | 1. Rodar os jobs com uma tentativa:
-        | php artisan queue:listen --tries=1
-        |
-        | 2. Colocar os jobs com falha na fila para executar (por ID ou todos)
-        | php artisan queue:retry [1|all]
-         */
-        $usuarios = User::all();
-        foreach ($usuarios as $k => $usuario) {
-            $email = new \App\Mail\SerieCriada(
-                $nome,
-                $quantidadeTemporada,
-                $quantidadeEpsodio
-            );
-
-            // A cada X segundos enviar um e-mail
-            $aCadaSegundo = 9;
-            $horario      = now()->addSeconds(
-                $aCadaSegundo * ($k + 1)
-            );
-            Mail::to($usuario)->later(
-                $horario,
-                $email
-            );
-        }
-    }
-
 }
