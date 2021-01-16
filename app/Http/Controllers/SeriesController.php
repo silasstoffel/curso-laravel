@@ -72,7 +72,7 @@ class SeriesController extends Controller
         |
         | 2. Colocar os jobs com falha na fila para executar (por ID ou todos)
         | php artisan queue:retry [1|all]
-        */
+         */
         $usuarios = User::all();
         foreach ($usuarios as $k => $usuario) {
             $email = new \App\Mail\SerieCriada(
@@ -80,7 +80,16 @@ class SeriesController extends Controller
                 $quantidadeTemporada,
                 $quantidadeEpsodio
             );
-            Mail::to($usuario)->queue($email);
+
+            // A cada X segundos enviar um e-mail
+            $aCadaSegundo = 9;
+            $horario      = now()->addSeconds(
+                $aCadaSegundo * ($k + 1)
+            );
+            Mail::to($usuario)->later(
+                $horario,
+                $email
+            );
         }
     }
 
