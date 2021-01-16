@@ -17,7 +17,7 @@ Criar Série
     @endif
 
 
-    <form action="" method="POST">
+    <form action="" method="POST" enctype="multipart/form-data">
 
         <div class="row">
 
@@ -43,6 +43,16 @@ Criar Série
                 </div>
             </div>
 
+        </div>
+
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="foto_capa">Foto Capa</label>
+                    <input type="file" class="form-control" name="foto_capa" id="foto_capa" />
+                </div>
+            </div>
         </div>
 
         <div class="row">

@@ -7,6 +7,14 @@ Temporadas de {{$serie->nome}}
 @section('conteudo')
 
 <div class="row">
+    <div class="col mb-3 text-center">
+        <a href="{{ $serie->foto_capa }}" target="_blank">
+            <img src="{{ $serie->foto_capa }}" class="img-thumbnail mr-2" height="400px" width="400px"/>
+        </a>
+    </div>
+</div>
+
+<div class="row">
     <div class="col">
         <ul class="list-group">
             @foreach($temporadas as $temporada)
