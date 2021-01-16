@@ -66,14 +66,21 @@ class SeriesController extends Controller
 
     private function alertarUsuariosPorEmailAoCriarSerie($nome, $quantidadeTemporada, $quantidadeEpsodio)
     {
+        /*
+        | 1. Rodar os jobs com uma tentativa:
+        | php artisan queue:listen --tries=1
+        |
+        | 2. Colocar os jobs com falha na fila para executar (por ID ou todos)
+        | php artisan queue:retry [1|all]
+        */
         $usuarios = User::all();
-        foreach ($usuarios as $usuario) {
+        foreach ($usuarios as $k => $usuario) {
             $email = new \App\Mail\SerieCriada(
                 $nome,
                 $quantidadeTemporada,
                 $quantidadeEpsodio
             );
-            Mail::to($usuario)->send($email);
+            Mail::to($usuario)->queue($email);
         }
     }
 
