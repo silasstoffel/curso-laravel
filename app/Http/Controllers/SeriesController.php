@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SeriesFormRequest;
 use App\Models\Serie;
+use App\Models\User;
 use App\Services\CriadorDeSerie;
 use App\Services\RemovedorDeSerie;
 use Illuminate\Http\Request;
@@ -32,14 +33,11 @@ class SeriesController extends Controller
             $request->qtd_episodio_temporada
         );
 
-        $email = new \App\Mail\SerieCriada(
+        $this->alertarUsuariosPorEmailAoCriarSerie(
             $request->nome,
             $request->qtd_temporadas,
             $request->qtd_episodio_temporada
         );
-
-        $dest  = $request->user();
-        Mail::to($dest)->send($email);
 
         $request->session()
             ->flash(
@@ -64,6 +62,19 @@ class SeriesController extends Controller
         $serie       = Serie::find($id);
         $serie->nome = $request->nome;
         $serie->save();
+    }
+
+    private function alertarUsuariosPorEmailAoCriarSerie($nome, $quantidadeTemporada, $quantidadeEpsodio)
+    {
+        $usuarios = User::all();
+        foreach ($usuarios as $usuario) {
+            $email = new \App\Mail\SerieCriada(
+                $nome,
+                $quantidadeTemporada,
+                $quantidadeEpsodio
+            );
+            Mail::to($usuario)->send($email);
+        }
     }
 
 }

@@ -6,7 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-// php artisan make:mail OrderShipped
+// php artisan make:mail SerieCriada
 
 class SerieCriada extends Mailable
 {

@@ -4,5 +4,5 @@
 
 ### **{{ $nome }}**
 ### Quantidade Temporadas: {{ $quantidadeTemporadas }}
-### Quantidade Episódios: {{ $quantidadeEpisodio }}
+### Quantidade Episódios: {{ $quantidadeEpisodios }}
 @endcomponent
