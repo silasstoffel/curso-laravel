@@ -5,8 +5,9 @@ namespace App\Listeners;
 use App\Events\SerieCriadaEvent;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class EnviarEmailCadastrarSerieListener
+class EnviarEmailCadastrarSerieListener implements ShouldQueue
 {
     /**
      * Create the event listener.

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Events\SeriaCriadaEvent;
 use App\Listeners\EnviarEmailCadastrarSerieListener;
+use App\Listeners\GravarLogSerieCriadaListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -22,6 +23,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         SeriaCriadaEvent::class => [
             EnviarEmailCadastrarSerieListener::class,
+            GravarLogSerieCriadaListener::class,
         ],
     ];
 
