@@ -7,6 +7,7 @@ use App\Models\Serie;
 use App\Models\Temporada;
 use Illuminate\Support\Facades\DB;
 use App\Events\SerieExcluidaEvent;
+use App\Jobs\ExcluirCapaSerieJob;
 
 class RemovedorDeSerie
 {
@@ -29,9 +30,14 @@ class RemovedorDeSerie
             // (model) depois de exluir vai dar problema se for executado por
             // um serviço de fila, por isso, está sendo feito conversão para
             // array de depois para objeto simples do PHP.
+            /*
             event(
                 new SerieExcluidaEvent((object) $data)
             );
+            */
+
+            ExcluirCapaSerieJob::dispatch((object) $data);
+
         });
         return $serieExcluida;
     }
