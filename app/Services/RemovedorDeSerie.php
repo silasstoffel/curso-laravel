@@ -6,6 +6,7 @@ use App\Models\Episodio;
 use App\Models\Serie;
 use App\Models\Temporada;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class RemovedorDeSerie
 {
@@ -19,6 +20,9 @@ class RemovedorDeSerie
             // Por fim, remove a série que é entidade principal
             $serieExcluida = $serie;
             $serie->delete();
+            if ($serie->foto_capa) {
+                Storage::disk('public')->delete($serie->foto_capa);
+            }
         });
         return $serieExcluida;
     }

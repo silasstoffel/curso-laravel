@@ -20,7 +20,7 @@ Séries
                     <div class="d-flex justify-content-between align-items-center">
 
                         <div>
-                            <img src="{{ $serie->foto_capa }}" class="img-thumbnail mr-2" height="100px" width="100px"/>
+                            <img src="{{ $serie->foto_capa_url }}" class="img-thumbnail mr-2" height="100px" width="100px"/>
                             <span id="nome-serie-{{ $serie->id }}">{{ $serie->nome }}</span>
                         </div>
 

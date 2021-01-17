@@ -8,8 +8,8 @@ Temporadas de {{$serie->nome}}
 
 <div class="row">
     <div class="col mb-3 text-center">
-        <a href="{{ $serie->foto_capa }}" target="_blank">
-            <img src="{{ $serie->foto_capa }}" class="img-thumbnail mr-2" height="400px" width="400px"/>
+        <a href="{{ $serie->foto_capa_url }}" target="_blank">
+            <img src="{{ $serie->foto_capa_url }}" class="img-thumbnail mr-2" height="400px" width="400px"/>
         </a>
     </div>
 </div>

@@ -9,9 +9,9 @@ class Serie extends Model
     protected $table    = 'serie';
     protected $fillable = ['nome', 'foto_capa'];
 
-    public function getFotoCapaAttribute($foto)
+    public function getFotoCapaUrlAttribute()
     {
-        return (is_null($foto)) ? '/storage/no-img.gif' : '/storage/' . $foto;
+        return (is_null($this->foto_capa)) ? '/storage/no-img.gif' : '/storage/' . $this->foto_capa;
     }
 
     public function temporadas()
