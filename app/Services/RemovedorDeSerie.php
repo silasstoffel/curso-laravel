@@ -20,10 +20,17 @@ class RemovedorDeSerie
             // Por fim, remove a série que é entidade principal
             $serieExcluida = $serie;
             $serie->delete();
+
             // Emite um  evento de série excluida para os ouvintes tomarem
             // alguma ação
+            $data = $serieExcluida->toArray();
+
+            // A serie por padrão vem como array, se passar um objeto série
+            // (model) depois de exluir vai dar problema se for executado por
+            // um serviço de fila, por isso, está sendo feito conversão para
+            // array de depois para objeto simples do PHP.
             event(
-                new SerieExcluidaEvent($serie)
+                new SerieExcluidaEvent((object) $data)
             );
         });
         return $serieExcluida;

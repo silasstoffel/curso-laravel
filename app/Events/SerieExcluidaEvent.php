@@ -29,7 +29,7 @@ class SerieExcluidaEvent
     /**
      * serie
      *
-     * @var App\Models\Serie
+     * @var object
      */
     public $serie;
 
@@ -38,7 +38,7 @@ class SerieExcluidaEvent
      *
      * @return void
      */
-    public function __construct(Serie $serie)
+    public function __construct(object $serie)
     {
         $this->serie = $serie;
     }

@@ -9,7 +9,7 @@ use Illuminate\Queue\InteractsWithQueue;
 
 // php artisan make:listener -e SerieExcluidaEvent ExcluirFotoCapaSerieListener
 
-class ExcluirFotoCapaSerieListener
+class ExcluirFotoCapaSerieListener implements ShouldQueue
 {
     /**
      * Create the event listener.
