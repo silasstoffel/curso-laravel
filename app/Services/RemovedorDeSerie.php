@@ -6,7 +6,7 @@ use App\Models\Episodio;
 use App\Models\Serie;
 use App\Models\Temporada;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
+use App\Events\SerieExcluidaEvent;
 
 class RemovedorDeSerie
 {
@@ -20,9 +20,11 @@ class RemovedorDeSerie
             // Por fim, remove a série que é entidade principal
             $serieExcluida = $serie;
             $serie->delete();
-            if ($serie->foto_capa) {
-                Storage::disk('public')->delete($serie->foto_capa);
-            }
+            // Emite um  evento de série excluida para os ouvintes tomarem
+            // alguma ação
+            event(
+                new SerieExcluidaEvent($serie)
+            );
         });
         return $serieExcluida;
     }

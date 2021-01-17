@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Events\SeriaCriadaEvent;
+use App\Events\SerieExcluidaEvent;
 use App\Listeners\EnviarEmailCadastrarSerieListener;
 use App\Listeners\GravarLogSerieCriadaListener;
+use App\Listeners\ExcluirFotoCapaSerieListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -25,6 +27,9 @@ class EventServiceProvider extends ServiceProvider
             EnviarEmailCadastrarSerieListener::class,
             GravarLogSerieCriadaListener::class,
         ],
+        SerieExcluidaEvent::class => [
+            ExcluirFotoCapaSerieListener::class
+        ]
     ];
 
     /**
